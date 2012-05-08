@@ -328,7 +328,7 @@ void setup_session_dir()
 
     fd = open(OP_DATA_DIR, O_RDONLY);
     if (fd != -1) {
-        system("rm -r "OP_DATA_DIR);
+        system("rm -r " OP_DATA_DIR);
         close(fd);
     }
 
@@ -350,14 +350,14 @@ int do_setup()
 
     if (mkdir(OP_DRIVER_BASE, 0755)) {
         if (errno != EEXIST) {
-            fprintf(stderr, "Cannot create directory "OP_DRIVER_BASE": %s\n",
+            fprintf(stderr, "Cannot create directory " OP_DRIVER_BASE ": %s\n",
                     strerror(errno));
             return -1;
         }
     }
 
     if (access(OP_DRIVER_BASE"/stats", F_OK)) {
-        if (system("mount -t oprofilefs nodev "OP_DRIVER_BASE)) {
+        if (system("mount -t oprofilefs nodev " OP_DRIVER_BASE)) {
             return -1;
         }
     }
@@ -563,7 +563,7 @@ void do_status()
 
 #if defined(__i386__) || defined(__x86_64__)
             /* FIXME on ARM - backtrace seems broken there */
-            num = read_num(OP_DRIVER_BASE"/backtrace_depth");
+            num = read_num(OP_DRIVER_BASE "/backtrace_depth");
             printf("  %9u backtrace_depth\n", num);
 #endif
         }
@@ -577,12 +577,12 @@ void do_reset()
 {
     int fd;
 
-    fd = open(OP_DATA_DIR"/samples/current", O_RDONLY);
+    fd = open(OP_DATA_DIR "/samples/current", O_RDONLY);
     if (fd == -1) {
         return;
     }
     close(fd);
-    system("rm -r "OP_DATA_DIR"/samples/current");
+    system("rm -r " OP_DATA_DIR "/samples/current");
 }
 
 int main(int argc, char * const argv[])
@@ -711,7 +711,7 @@ int main(int argc, char * const argv[])
 
         strcpy(command, argv[0]);
         char* slash = strrchr(command, '/');
-        strcpy(slash ? slash + 1 : command, "oprofiled --session-dir="OP_DATA_DIR);
+        strcpy(slash ? slash + 1 : command, "oprofiled --session-dir=" OP_DATA_DIR);
 
 #if defined(__i386__) || defined(__x86_64__)
         /* Nothing */
